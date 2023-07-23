@@ -1,6 +1,9 @@
 import yaml
 import boto3
 
+def ssm():
+    pass
+
 def config_open(filename: str) -> dict:
     try:
         with open(filename) as f:
@@ -10,13 +13,13 @@ def config_open(filename: str) -> dict:
         print('Error opening config file')
         exit(-1)
 
-def exist_ssm():
+def is_exist_ssm():
     pass
 
 def register_ssm():
     pass
 
-def exist_secretsmanager():
+def is_exist_secretsmanager():
     pass
 
 def register_secretsmanager():
