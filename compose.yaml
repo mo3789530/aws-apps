@@ -28,7 +28,7 @@ services:
         user: root
         command: -jar DynamoDBLocal.jar -sharedDb -dbPath /data  # 永続化するデータのファイルパス
         volumes:
-          - dynamodb-data:/data  # データの永続化
+          - dynamodb-data:/tmp/dynamodb  # データの永続化
         ports:
             - 8000:8000
     dynamodb-admin:
