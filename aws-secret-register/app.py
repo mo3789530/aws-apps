@@ -43,6 +43,12 @@ def is_exist_secretsmanager(id: str):
         return True
     except:
         return False
+    
+def tags(app):
+    return [
+        {"SID": app.sid},
+        {"Environment": app.env }
+    ]
 
 
 def register_secretsmanager(name: str, secret: dict, tags: []):
@@ -65,6 +71,8 @@ def resource_name_format(app: dict):
 def main():
     yaml = config_open('application.yaml')
     print(yaml.get('app'))
+    app = yaml.get('app')
+    
 
 
 if __name__ == '__main__':
