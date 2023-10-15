@@ -2,7 +2,6 @@ import yaml
 import boto3
 from botocore.config import Config
 import os
-import subprocess
 
 
 def get_client(key, env):
@@ -28,26 +27,45 @@ def config_open(filename: str) -> dict:
         exit(-1)
 
 
-def is_exist_ssm():
-    pass
+def is_exist_ssm(name: str) -> bool:
+    client = get_client('ssm')
+    try:
+        # Retrieve the parameter value
+        response = client.get_parameter(Name=name, WithDecryption=True)
+        parameter_value = response['Parameter']['Value']
+        return True
+    except client.exceptions.ParameterNotFound:
+        print(f"Parameter '{name}' not found.")
+        return False
 
 
-def register_ssm():
-    pass
+def register_ssm(name: str, value: str | [], description: str, parameter_type: str, tags: []):
+    client = get_client('ssm')
+    try:
+        response = client.put_parameter(
+            Name=name,
+            Value=value,
+            Description=description,
+            Type=parameter_type,
+            Overwrite=True,  # Set to True if you want to update the parameter if it already exists
+            Tags=tags
+        )
+    except Exception as e:
+        print(e)
 
-
-def is_exist_secretsmanager(id: str):
-    client = client('secretsmanager')
+def is_exist_secretsmanager(id: str) -> bool:
+    client = get_client('secretsmanager')
     try:
         response = client.get_secret_value(SecretId=id)
         return True
     except:
         return False
-    
-def tags(app):
+
+
+def tags(app) -> []:
     return [
         {"SID": app.sid},
-        {"Environment": app.env }
+        {"Environment": app.env}
     ]
 
 
@@ -64,15 +82,15 @@ def register_secretsmanager(name: str, secret: dict, tags: []):
         print("error")
 
 
-def resource_name_format(app: dict):
-    pass
+def resource_name_format(app: dict, name: str) -> str:
+    return f'{app.get("env")}-{app.get("sid")}-{name}'
 
 
 def main():
     yaml = config_open('application.yaml')
     print(yaml.get('app'))
     app = yaml.get('app')
-    
+    print(resource_name_format(app, "test"))
 
 
 if __name__ == '__main__':
