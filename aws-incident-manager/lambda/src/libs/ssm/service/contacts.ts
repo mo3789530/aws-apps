@@ -43,7 +43,7 @@ export class SSMContacts {
     this.client = new SSMContactsClient({ region: this.region });
   }
 
-  public async accesptPage(acceptPageCommand: AcceptPageCommandDto) {
+  public async acceptPage(acceptPageCommand: AcceptPageCommandDto) {
     const params: AcceptPageCommandInput = {
       AcceptCode: acceptPageCommand.AcceptCode,
       AcceptType: acceptPageCommand.AcceptType,

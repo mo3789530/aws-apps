@@ -10,6 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.428.0",
     "@aws-sdk/client-ssm-contacts": "^3.192.0",
     "@aws-sdk/client-ssm-incidents": "^3.192.0",
     "@vendia/serverless-express": "^4.10.1",
