@@ -1,0 +1,6 @@
+{
+    "autoSave": true,
+    "autoSave.delay": 1000,
+    "editor.formatOnSave": true,
+    "editor.guides": []
+}
