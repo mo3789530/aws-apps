@@ -12,7 +12,7 @@ router.get('/', (req, res) => {
 });
 
 router.get('/groups', async (req, res) => {
-  logger.info('group', file)
+  logger.info('list group', file)
   try {
     const groups = await service.listGroup();
     return res.status(200).json({ "groups": groups });
@@ -74,7 +74,14 @@ router.post('/user', async (req, res) => {
 
 router.delete('/group', async (req, res) => {
   logger.info('delete user ', file)
+  try {
+    const groupname = req.body.groupname;
+    const username = req.body.username;
 
+    await service.removeUserFromGroup(groupname, username);
+  } catch (err) {
+    return res.json(400).json({ error: err })
+  }
 
 })
 

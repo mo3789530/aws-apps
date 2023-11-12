@@ -1,7 +1,7 @@
 import {
   IAMClient, CreateGroupCommand, ListGroupsCommand,
   GetGroupCommand, GetGroupCommandInput, AddUserToGroupCommand,
-  RemoveUserFromGroupCommand, CreateUserCommand, GetUserCommand
+  RemoveUserFromGroupCommand, CreateUserCommand, GetUserCommand, Group, User
 } from "@aws-sdk/client-iam";
 
 import { Logger } from '../utils/logger';
@@ -26,6 +26,7 @@ export class IamService {
       }
     } catch (e) {
       this.logger.error(String(e));
+      throw e;
     }
   }
 
@@ -33,7 +34,7 @@ export class IamService {
     const client: IAMClient = this.iam();
 
     let input = {}
-    const allGroups = [];
+    const allGroups: Group[] = [];
 
     let i = 0;
 
@@ -41,7 +42,7 @@ export class IamService {
       const command = new ListGroupsCommand(input);
       const response = await client.send(command);
       if (response.Groups) {
-        allGroups.push(...response.Groups)
+        allGroups.push(...response.Groups);
       }
       if (!response.IsTruncated) {
         break;
@@ -66,15 +67,15 @@ export class IamService {
 
     let i = 0;
 
-    const allGroups = [];
-    const allUsers = [];
+    const allGroups: Group[] = [];
+    const allUsers: User[] = [];
     try {
       while (i < 10) {
         const command = new GetGroupCommand(input);
         const response = await client.send(command);
         if (response.Group && response.Users) {
           allGroups.push(response.Group);
-          allUsers.push(response.Users);
+          allUsers.push(...response.Users);
         }
         if (!response.IsTruncated) {
           break;
@@ -85,6 +86,7 @@ export class IamService {
       }
     } catch (e) {
       this.logger.error(String(e));
+      throw e;
     }
   }
 
@@ -104,6 +106,7 @@ export class IamService {
       }
     } catch (e) {
       this.logger.error(String(e));
+      throw e;
     }
 
   }
@@ -119,6 +122,7 @@ export class IamService {
       await client.send(command)
     } catch (e) {
       this.logger.error(String(e));
+      throw e;
     }
   }
 
@@ -134,6 +138,7 @@ export class IamService {
       await client.send(command);
     } catch (e) {
       this.logger.error(String(e));
+      throw e;
     }
 
   }
@@ -147,6 +152,7 @@ export class IamService {
       console.log("Success", results);
     } catch (e) {
       this.logger.error(String(e));
+      throw e;
     }
   }
 
@@ -164,6 +170,7 @@ export class IamService {
       }
     } catch (e) {
       this.logger.error(String(e));
+      throw e;
     }
   }
 
