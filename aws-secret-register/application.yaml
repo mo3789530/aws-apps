@@ -1,0 +1,9 @@
+app:
+  sid: "test"
+  env: "dev"
+  region: "ap-northeast-1"
+secret:
+  test:
+ssm:
+  test: 
+  
