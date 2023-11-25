@@ -3,7 +3,10 @@ app:
   env: "dev"
   region: "ap-northeast-1"
 secret:
-  test:
+  test: "test"
+  common:
+    ctest: "aaa"
 ssm:
-  test: 
+  test: "aaa"
+  test1: "bbb"
   
