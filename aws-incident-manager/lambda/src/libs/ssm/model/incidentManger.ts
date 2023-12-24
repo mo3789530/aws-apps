@@ -23,7 +23,7 @@ export type StartIncidentCommandDto = {
 export type IncidentTemplate = {
   Impact: Impact;
   Title: string | undefined;
-  InsidentTags: Record<string, string>;
+  IncidentTags: Record<string, string>;
   Summary: string | undefined;
   NotificationTargets: string[] | undefined;
 };
