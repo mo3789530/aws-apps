@@ -15,6 +15,7 @@ export class IamService {
   }
 
   createIamUserGroup = async (groupName: string) => {
+    this.logger.info(`create user group ${groupName}`)
     const client: IAMClient = this.iam();
     const command = new CreateGroupCommand({ GroupName: groupName });
 
@@ -113,6 +114,7 @@ export class IamService {
 
 
   addUserToGroup = async (groupName: string, userName: string) => {
+    this.logger.info(`add group group ${groupName} ${userName}`)
     const client = this.iam();
     try {
       const command = new AddUserToGroupCommand({
@@ -129,6 +131,7 @@ export class IamService {
 
   removeUserFromGroup = async (groupName: string, userName: string) => {
     const client = this.iam();
+    this.logger.info(`remove from group ${groupName} ${userName}`)
 
     try {
       const command = new RemoveUserFromGroupCommand({
@@ -149,7 +152,7 @@ export class IamService {
 
     try {
       const results = await client.send(createUserCommand);
-      console.log("Success", results);
+      this.logger.info("Success", results);
     } catch (e) {
       this.logger.error(String(e));
       throw e;
