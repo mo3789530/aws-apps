@@ -30,5 +30,5 @@ app.get('/api/health', (req: Request, res: Response) => {
 });
 
 app.all("*", (req: Request, res: Response) => {
-  res.status(404).send("Not Found");
+  res.status(404).send({ status: "NotFound" });
 })
